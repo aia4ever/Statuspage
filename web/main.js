@@ -1,5 +1,5 @@
 (function(){
-    let apiPath = '/api';
+    let apiPath = 'https://glacial-beyond-70476.herokuapp.com/';
     //let apiPath = 'getresponse/error.json';
 
     let dataScheme = {
