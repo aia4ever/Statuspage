@@ -3,15 +3,17 @@ package server
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"simulator/pkg/result"
 )
 
 func Server() {
 	r := mux.NewRouter()
-	r.HandleFunc("/", serveFiles)
+	r.HandleFunc("/", serveTemplate)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8383" // Default port if not specified
@@ -35,10 +37,10 @@ func handleConnection(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
-func serveFiles(w http.ResponseWriter, r *http.Request) {
-	p := "." + r.URL.Path
-	if p == "./" {
-		p = "./web/status_page.html"
-	}
-	http.ServeFile(w, r, p)
+func serveTemplate(w http.ResponseWriter, r *http.Request) {
+	lp := filepath.Join("web", "status_page.html")
+	fp := filepath.Join("web", filepath.Clean(r.URL.Path))
+
+	tmpl, _ := template.ParseFiles(lp, fp)
+	tmpl.ExecuteTemplate(w, "status_page", nil)
 }
