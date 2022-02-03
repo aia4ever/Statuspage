@@ -16,7 +16,7 @@ func Server() {
 	if port == "" {
 		port = "8383" // Default port if not specified
 	}
-	r.HandleFunc("/", handleConnection)
+	r.HandleFunc("/api", handleConnection)
 	s := &http.Server{
 		Addr:    ":" + port,
 		Handler: r,
