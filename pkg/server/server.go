@@ -10,7 +10,7 @@ import (
 
 func Server() {
 	r := mux.NewRouter()
-	r.HandleFunc("/", handleConnection)
+	r.HandleFunc("/get", handleConnection)
 	s := &http.Server{
 		Addr:    "127.0.0.1:8282",
 		Handler: r,
