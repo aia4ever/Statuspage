@@ -40,15 +40,7 @@ func Server() {
 	r := mux.NewRouter()
 	tmpl := template.Must(template.ParseFiles("layout.html"))
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		data := TodoPageData{
-			PageTitle: "My TODO list",
-			Todos: []Todo{
-				{Title: "Task 1", Done: false},
-				{Title: "Task 2", Done: true},
-				{Title: "Task 3", Done: true},
-			},
-		}
-		tmpl.Execute(w, data)
+		tmpl.Execute(w, nil)
 	})
 	port := os.Getenv("PORT")
 	if port == "" {
