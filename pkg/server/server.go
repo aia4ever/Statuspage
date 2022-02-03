@@ -11,6 +11,7 @@ import (
 
 func Server() {
 	r := mux.NewRouter()
+	r.Handle("/", http.FileServer(http.Dir("./web")))
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8383" // Default port if not specified
