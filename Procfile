@@ -1,2 +1,2 @@
-web: cmd/simulator/main.go, emul/main.go
+web: cmd/simulator, emul
 
