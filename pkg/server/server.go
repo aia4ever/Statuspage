@@ -2,17 +2,54 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"simulator/pkg/result"
 )
 
+type Todo struct {
+	Title string
+	Done  bool
+}
+
+type TodoPageData struct {
+	PageTitle string
+	Todos     []Todo
+}
+
+func main() {
+	tmpl := template.Must(template.ParseFiles("layout.html"))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		data := TodoPageData{
+			PageTitle: "My TODO list",
+			Todos: []Todo{
+				{Title: "Task 1", Done: false},
+				{Title: "Task 2", Done: true},
+				{Title: "Task 3", Done: true},
+			},
+		}
+		tmpl.Execute(w, data)
+	})
+	http.ListenAndServe(":80", nil)
+}
+
 func Server() {
 	r := mux.NewRouter()
-	r.Handle("/", http.FileServer(http.Dir("./web")))
+	tmpl := template.Must(template.ParseFiles("layout.html"))
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		data := TodoPageData{
+			PageTitle: "My TODO list",
+			Todos: []Todo{
+				{Title: "Task 1", Done: false},
+				{Title: "Task 2", Done: true},
+				{Title: "Task 3", Done: true},
+			},
+		}
+		tmpl.Execute(w, data)
+	})
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8383" // Default port if not specified
@@ -34,13 +71,4 @@ func handleConnection(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	w.Write(res)
-}
-
-func serveFiles(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.URL.Path)
-	p := "." + r.URL.Path
-	if p == "./" {
-		p = "./web/status_page.html"
-	}
-	http.ServeFile(w, r, p)
 }
