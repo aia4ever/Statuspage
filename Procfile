@@ -1,2 +1,2 @@
-web: cmd/simulator, emul, wev/main.js
+web: cmd/simulator, emul, web/main.js
 
