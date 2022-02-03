@@ -11,7 +11,7 @@ import (
 
 func Server() {
 	r := mux.NewRouter()
-	r.Handle("/", http.FileServer(http.Dir("./web")))
+	r.HandleFunc("/", serveFiles)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8383" // Default port if not specified
@@ -33,4 +33,12 @@ func handleConnection(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	w.Write(res)
+}
+
+func serveFiles(w http.ResponseWriter, r *http.Request) {
+	p := "." + r.URL.Path
+	if p == "./" {
+		p = "./web/status_page.html"
+	}
+	http.ServeFile(w, r, p)
 }
