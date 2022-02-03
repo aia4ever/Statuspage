@@ -2,7 +2,7 @@ package mms
 
 import (
 	"encoding/json"
-	"io"
+	"io/ioutil"
 	"log"
 	"simulator/pkg/data"
 	"simulator/pkg/getresponse"
@@ -30,7 +30,7 @@ func mmsContent() []MMSData {
 	defer resp.Body.Close()
 	if resp.StatusCode == 200 {
 
-		jsonStream, err := io.ReadAll(resp.Body)
+		jsonStream, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			log.Fatal(err)
 		}

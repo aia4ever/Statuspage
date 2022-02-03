@@ -2,7 +2,7 @@ package support
 
 import (
 	"encoding/json"
-	"io"
+	"io/ioutil"
 	"log"
 	"simulator/pkg/getresponse"
 	"strings"
@@ -37,7 +37,7 @@ func getSupportData() []Support {
 	dataSlice := make([]Support, 0)
 	defer resp.Body.Close()
 	if resp.StatusCode == 200 {
-		jsonStream, err := io.ReadAll(resp.Body)
+		jsonStream, err := ioutil.ReadAll(resp.Body)
 
 		if err != nil {
 			log.Fatal(err)

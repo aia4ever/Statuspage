@@ -2,7 +2,7 @@ package incident
 
 import (
 	"encoding/json"
-	"io"
+	"io/ioutil"
 	"log"
 	"simulator/pkg/getresponse"
 	"sort"
@@ -19,7 +19,7 @@ func Result() []IncidentData {
 	defer resp.Body.Close()
 	var incidentData []IncidentData
 	if resp.StatusCode == 200 {
-		jsonStream, err := io.ReadAll(resp.Body)
+		jsonStream, err := ioutil.ReadAll(resp.Body)
 
 		if err != nil {
 			log.Fatal(err)
