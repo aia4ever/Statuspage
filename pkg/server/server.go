@@ -38,10 +38,6 @@ func main() {
 
 func Server() {
 	r := mux.NewRouter()
-	tmpl := template.Must(template.ParseFiles("layout.html"))
-	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.Execute(w, nil)
-	})
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8383" // Default port if not specified
