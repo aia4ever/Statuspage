@@ -5,14 +5,19 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"os"
 	"simulator/pkg/result"
 )
 
 func Server() {
 	r := mux.NewRouter()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8383" // Default port if not specified
+	}
 	r.HandleFunc("/", handleConnection)
 	s := &http.Server{
-		Addr:    ":8282",
+		Addr:    ":" + port,
 		Handler: r,
 	}
 	log.Fatal(s.ListenAndServe())
