@@ -1,5 +1,5 @@
 (function(){
-    let apiPath = 'http://127.0.0.1:8282/';
+    let apiPath = '/api';
     //let apiPath = 'getresponse/error.json';
 
     let dataScheme = {
