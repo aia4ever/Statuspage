@@ -1,1 +1,1 @@
-web: cmd/simulator, emul
+web: simulator - -port $PORT

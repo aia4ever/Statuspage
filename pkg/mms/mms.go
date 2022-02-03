@@ -25,7 +25,7 @@ func Result() [][]MMSData {
 }
 
 func mmsContent() []MMSData {
-	resp := getresponse.GetResponse("http://127.0.0.1:8383/mms")
+	resp := getresponse.GetResponse("https://dataemul.herokuapp.com/mms")
 	mmsData := make([]MMSData, 0)
 	defer resp.Body.Close()
 	if resp.StatusCode == 200 {

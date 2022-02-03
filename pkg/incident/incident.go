@@ -15,7 +15,7 @@ type IncidentData struct {
 }
 
 func Result() []IncidentData {
-	resp := getresponse.GetResponse("http://127.0.0.1:8383/accident")
+	resp := getresponse.GetResponse("https://dataemul.herokuapp.com/accident")
 	defer resp.Body.Close()
 	var incidentData []IncidentData
 	if resp.StatusCode == 200 {

@@ -33,7 +33,7 @@ func Result() []int {
 }
 
 func getSupportData() []Support {
-	resp := getresponse.GetResponse("http://127.0.0.1:8383/support")
+	resp := getresponse.GetResponse("https://dataemul.herokuapp.com/support")
 	dataSlice := make([]Support, 0)
 	defer resp.Body.Close()
 	if resp.StatusCode == 200 {
