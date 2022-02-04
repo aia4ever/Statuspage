@@ -43,8 +43,8 @@ func Server() {
 	if port == "" {
 		port = "8383" // Default port if not specified
 	}
-	fs := http.FileServer(http.Dir("./web"))
-	r.Handle("/web/", http.StripPrefix("/web/", fs))
+	//fs := http.FileServer(http.Dir("./web"))
+	//r.Handle("/web/", http.StripPrefix("/web/", fs))
 
 	r.HandleFunc("/", serveTemplate)
 	r.HandleFunc("/api", handleConnection)
