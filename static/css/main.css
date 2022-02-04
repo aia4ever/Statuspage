@@ -67,7 +67,7 @@ td.row-name {
 
 .true-value {
     width: 50px;
-    background-image: url('true.png');
+    background-image: url('../images/true.png');
     background-repeat: no-repeat;
     background-size: 16px;
     background-position: center center;
@@ -75,7 +75,7 @@ td.row-name {
 
 .false-value {
     width: 50px;
-    background-image: url('false.png');
+    background-image: url('../images/false.png');
     background-repeat: no-repeat;
     background-size: 16px;
     background-position: center center;
