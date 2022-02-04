@@ -9,16 +9,6 @@ import (
 	"simulator/pkg/result"
 )
 
-type Todo struct {
-	Title string
-	Done  bool
-}
-
-type TodoPageData struct {
-	PageTitle string
-	Todos     []Todo
-}
-
 func Server() {
 	r := mux.NewRouter()
 	port := os.Getenv("PORT")
