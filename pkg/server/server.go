@@ -2,12 +2,12 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"simulator/pkg/result"
 )
 
@@ -43,7 +43,10 @@ func Server() {
 	if port == "" {
 		port = "8383" // Default port if not specified
 	}
-	r.HandleFunc("/", html)
+	fs := http.FileServer(http.Dir("./web"))
+	r.Handle("/web/", http.StripPrefix("/web/", fs))
+
+	r.HandleFunc("/", serveTemplate)
 	r.HandleFunc("/api", handleConnection)
 	s := &http.Server{
 		Addr:    ":" + port,
@@ -63,15 +66,22 @@ func handleConnection(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
-func html(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	if r.Method == "GET" {
-		t, err := template.ParseFiles("web/status_page.html")
-		if err != nil {
-			fmt.Fprintf(w, "parse err")
-			return
-		}
-		t.Execute(w, nil)
-	}
-}
+//func html(w http.ResponseWriter, r *http.Request) {
+//	r.ParseForm()
+//	if r.Method == "GET" {
+//		t, err := template.ParseFiles("web/status_page.html")
+//		if err != nil {
+//			fmt.Fprintf(w, "parse err")
+//			return
+//		}
+//		t.Execute(w, nil)
+//	}
+//}
 
+func serveTemplate(w http.ResponseWriter, r *http.Request) {
+	lp := filepath.Join("web", "status_page.html")
+	fp := filepath.Join("web", filepath.Clean(r.URL.Path))
+
+	tmpl, _ := template.ParseFiles(lp, fp)
+	tmpl.ExecuteTemplate(w, "web", nil)
+}
