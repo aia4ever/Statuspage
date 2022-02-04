@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"html/template"
 	"log"
@@ -42,6 +43,7 @@ func Server() {
 	if port == "" {
 		port = "8383" // Default port if not specified
 	}
+	r.HandleFunc("/", html)
 	r.HandleFunc("/api", handleConnection)
 	s := &http.Server{
 		Addr:    ":" + port,
@@ -60,3 +62,16 @@ func handleConnection(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Write(res)
 }
+
+func html(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	if r.Method == "GET" {
+		t, err := template.ParseFiles("web/status_page.html")
+		if err != nil {
+			fmt.Fprintf(w, "parse err")
+			return
+		}
+		t.Execute(w, nil)
+	}
+}
+
