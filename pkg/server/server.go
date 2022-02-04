@@ -23,7 +23,7 @@ func Server() {
 	r := mux.NewRouter()
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8383" // Default port if not specified
+		port = "8383"
 	}
 	r.Handle("/", http.FileServer(http.Dir("./static")))
 	r.HandleFunc("/api", handleConnection)
