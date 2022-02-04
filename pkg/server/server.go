@@ -25,8 +25,8 @@ func Server() {
 	if port == "" {
 		port = "8383"
 	}
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static")))
 	r.HandleFunc("/api", handleConnection)
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static")))
 	s := &http.Server{
 		Addr:    ":" + port,
 		Handler: r,
