@@ -25,7 +25,7 @@ func Server() {
 	if port == "" {
 		port = "8383" // Default port if not specified
 	}
-	//r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static")))
+	r.Handle("/", http.FileServer(http.Dir("./static")))
 	r.HandleFunc("/api", handleConnection)
 	s := &http.Server{
 		Addr:    ":" + port,
