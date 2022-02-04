@@ -1,1 +1,1 @@
-web: simulator - -port $PORT
+web: simulator -port $PORT
