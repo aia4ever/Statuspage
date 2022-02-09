@@ -1,5 +1,5 @@
 (function(){
-    let apiPath = 'https://khankaevstatuspage.herokuapp.com/api';
+    let apiPath = 'http://127.0.0.1:8383/api';
     //let apiPath = 'getresponse/error.json';
 
     let dataScheme = {
