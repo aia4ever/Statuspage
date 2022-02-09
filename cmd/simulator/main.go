@@ -18,7 +18,7 @@ func main() {
 		port = "8383"
 	}
 	ticker := time.NewTicker(30 * time.Second)
-	res := result.GetRes()
+	var res result.ResultT
 	go func() {
 		for range ticker.C {
 			emulator.Shuffle()
